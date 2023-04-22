@@ -44,5 +44,35 @@ namespace ADO.NetProject
                 Console.WriteLine(ex.Message);
             }
         }
+        public static void GetAllCustomer()
+        {
+            try
+            {
+                Customer customer = new Customer();
+                SqlConnection sqlConnection = new SqlConnection(ConnectionString);
+                string query = "select * from Customer";
+                SqlCommand cmd = new SqlCommand(query, sqlConnection);
+                sqlConnection.Open();
+                SqlDataReader reader = cmd.ExecuteReader();
+                if (reader.HasRows)
+                {
+                    while (reader.Read())
+                    {
+                        customer.Id = Convert.ToInt32(reader["Id"] == DBNull.Value ? default : reader["Id"]);
+                        customer.Name = (reader["Name"] == DBNull.Value ? default : reader["Name"]).ToString();
+                        customer.City = (reader["City"] == DBNull.Value ? default : reader["City"]).ToString();
+                        customer.Address = (reader["Address"] == DBNull.Value ? default : reader["Address"]).ToString();
+                        customer.PhoneNumber = (int)Convert.ToInt64(reader["PhoneNumber"] == DBNull.Value ? default : reader["PhoneNumber"]);
+                        customer.Salary = (int)Convert.ToInt64(reader["Salary"] == DBNull.Value ? default : reader["Salary"]);
+
+                        Console.WriteLine(customer.Id + "\n" + customer.Name + "\n" + customer.City + "\n" + customer.Address + "\n" + customer.PhoneNumber + "\n" + customer.Salary);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
     }
 }

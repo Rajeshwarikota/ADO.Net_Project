@@ -12,7 +12,8 @@ namespace ADO.NetProject
         {
             Console.WriteLine(".....ADO.NET......");
             Console.WriteLine("Select any one Option for \n" +
-               "1. Add customer details into customer table");
+               "1. Add customer details into customer table \n" +
+               "2. Get all customers details");
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
             {
@@ -30,6 +31,9 @@ namespace ADO.NetProject
                     customer.Salary = Convert.ToInt64(Console.ReadLine());
 
                     CustomerRepository.AddCustomer(customer);
+                    break;
+                case 2:
+                    CustomerRepository.GetAllCustomer();
                     break;
                 default:
                     Console.WriteLine("Please Select Correct Option");
