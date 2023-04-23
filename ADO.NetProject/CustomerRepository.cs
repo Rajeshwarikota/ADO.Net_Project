@@ -76,28 +76,49 @@ namespace ADO.NetProject
         }
         public static void DeleteCustomer(Customer model)
         {
-                try
+            try
+            {
+                SqlConnection sqlConnection = new SqlConnection(ConnectionString);
+                SqlCommand sqlcommand = new SqlCommand("SPDELETECUSTOMERS", sqlConnection);
+                sqlcommand.CommandType = CommandType.StoredProcedure;
+                sqlConnection.Open();
+                sqlcommand.Parameters.AddWithValue("@Name", model.Name);
+                sqlcommand.Parameters.AddWithValue("@City", model.City);
+                int num = sqlcommand.ExecuteNonQuery();
+                if (num != 0)
                 {
-                    SqlConnection sqlConnection = new SqlConnection(ConnectionString);
-                    SqlCommand sqlcommand = new SqlCommand("SPDELETECUSTOMERS", sqlConnection);
-                    sqlcommand.CommandType = CommandType.StoredProcedure;
-                    sqlConnection.Open();
-                    sqlcommand.Parameters.AddWithValue("@Name", model.Name);
-                    sqlcommand.Parameters.AddWithValue("@City", model.City); 
-                    int num = sqlcommand.ExecuteNonQuery();
-                    if (num != 0)
-                    {
-                        Console.WriteLine("Customer Delete Successfully");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Something went Wrong in Delete Customer");
-                    }
+                    Console.WriteLine("Customer Delete Successfully");
                 }
-                catch (Exception ex)
+                else
                 {
-                    Console.WriteLine(ex.Message);
+                    Console.WriteLine("Something went Wrong in Delete Customer");
                 }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+            }
+        }
+        public static void UpdateCustomer(Customer model)
+        {
+
+            SqlConnection sqlConnection = new SqlConnection(ConnectionString);
+
+            SqlCommand cmd = new SqlCommand(" SPUPDATECUSTOMERS", sqlConnection);
+            cmd.CommandType = CommandType.StoredProcedure;
+            sqlConnection.Open();
+            cmd.Parameters.AddWithValue("@Name", model.Name);
+            cmd.Parameters.AddWithValue("@Salary", model.Salary);
+
+            int num = cmd.ExecuteNonQuery();
+            if (num != 0)
+            {
+                Console.WriteLine("Customer Update Successfully");
+            }
+            else
+            {
+                Console.WriteLine("Something went Wrong in Update Customer");
+            }
         }
     }
 }

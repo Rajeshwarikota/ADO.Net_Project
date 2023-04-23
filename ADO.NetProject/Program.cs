@@ -14,7 +14,8 @@ namespace ADO.NetProject
             Console.WriteLine("Select any one Option for \n" +
                "1. Add customer details into customer table \n" +
                "2. Get all customers details \n" +
-               "3. Delete any one customer from database");
+               "3. Delete any one customer from database \n" +
+               "4. Update customer salary based on customer name");
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
             {
@@ -44,6 +45,17 @@ namespace ADO.NetProject
                     customerToDelete.City = "Hyd"; // new parameter
                     CustomerRepository.DeleteCustomer(customerToDelete);
                     Console.ReadLine();
+                    break;
+                 case 4:
+                    Console.WriteLine("Enter Customer Name whos salary u want to update");
+                    string customerName = Console.ReadLine();
+                    Console.WriteLine("Enter Updated Salary");
+                    long updateSalary = Convert.ToInt64(Console.ReadLine());
+                    Customer customer2 = new Customer();
+                    customer2.Name = customerName;
+                    customer2.Salary = updateSalary;
+                    
+                    CustomerRepository.UpdateCustomer(customer2);
                     break;
                 default:
                     Console.WriteLine("Please Select Correct Option");
