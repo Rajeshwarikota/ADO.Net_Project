@@ -13,7 +13,8 @@ namespace ADO.NetProject
             Console.WriteLine(".....ADO.NET......");
             Console.WriteLine("Select any one Option for \n" +
                "1. Add customer details into customer table \n" +
-               "2. Get all customers details");
+               "2. Get all customers details \n" +
+               "3. Delete any one customer from database");
             int option = Convert.ToInt32(Console.ReadLine());
             switch (option)
             {
@@ -34,6 +35,15 @@ namespace ADO.NetProject
                     break;
                 case 2:
                     CustomerRepository.GetAllCustomer();
+                    break;
+                case 3:
+
+                    // create a new customer object
+                    Customer customerToDelete = new Customer();
+                    customerToDelete.Name = "Raji";
+                    customerToDelete.City = "Hyd"; // new parameter
+                    CustomerRepository.DeleteCustomer(customerToDelete);
+                    Console.ReadLine();
                     break;
                 default:
                     Console.WriteLine("Please Select Correct Option");
